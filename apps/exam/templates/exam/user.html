@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User</title>
+</head>
+<style>
+        *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+        
+        }
+        #wrapper{
+                padding: 0px 25px;
+                width: 1000px;
+                height: auto;
+        }
+</style>
+<body>
+    <a href="/dashboard">Dashboard</a>
+    <br><br>
+    <a href="/logout">Logout</a>
+
+    <h1>Posts by {{ user.name }} </h1>
+    <p>Count:{{ trip.trips.all | length }}</p>
+
+    {% for trip in trips %}
+        <div>
+            <span style="color: red">{{ trip.created_by }}:</span> 
+            {{ trip.description }}
+        </div>
+    {% endfor %}
+</body>
+</html>

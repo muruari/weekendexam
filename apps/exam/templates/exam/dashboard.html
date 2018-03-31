@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trips</title>
+    <style>
+            *{
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+            }
+            #wrapper{
+                padding: 0px 25px;
+                width: 1000px;
+                height: auto;
+            }
+            #header h1{
+                display: inline-block;
+                margin: 20px 90px 10px 0px;
+           }
+           #header a{
+               font-size: 20px;
+           }
+           #trips{
+                display: inline-block;
+                margin: 20px 300px 10px 0px;
+                vertical-align: top;
+           }
+           #itineraries{
+                display: inline-block;
+                margin: 20px 0px 10px 0px;
+           }
+           .itineraries p{
+               margin-left: 15px;
+           }
+           
+           .trips p{
+               margin-left: 15px;
+           }
+
+        </style>
+    </head>
+<body>
+    <div id="header">
+        <h1>Welcome, {{ user.name }}!</h1>
+        <a href="/add_plan" id = "add_link">Add a Travel Plan</a> | 
+        <a href="/logout">Logout</a>
+    </div>
+    <div id="trips">
+        <h2>Available Trips:</h2>
+        <div style="overflow:auto;">
+            {% for trip in trip_list %}
+                <div class = "trips">
+                    <h3>Destination: {{ trip.destination }}</h3>
+                    <p>Description: {{ trip.description }}</p>
+                    <p>Departs: {{ trip.departure_date }}</p>
+                    <p>Returns: {{ trip.return_date }}</p>
+                    <p>Trip planned by:<a href="/users/{{trip.created_by.id}}">{{ trip.created_by.name }}</a></p>
+                    <a href="/add_trip/{{trip.id}}">Add this trip to My Itineraries</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="itineraries">
+        <h2>Your Itineraries:</h2>
+        <div style="overflow:auto;">
+            {% for x in trips %}
+                <div class = "itineraries">
+                    <h3>Destination: {{ x.destination }}</h3>
+                    <p>Description: {{ x.description }}</p>
+                    <p>Departs: {{ x.departure_date }}</p>
+                    <p>Returns: {{ x.return_date }}</p>
+                    <p>Trip planned by:<a href="/users/{{x.created_by.id}}">{{ x.created_by.name }}</a></p>
+                    <a href="/remove_trip/{{x.id}}">Remove trip from My Itineratires</a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+            {% if 'add_item' in message.tags %}
+                <p>{{ message }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+
+</body>
+</html>
